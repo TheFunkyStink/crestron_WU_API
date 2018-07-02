@@ -1,0 +1,220 @@
+/*
+Dealer Name: Crestron Electronics
+Programmer: Garrett Oster
+Comments:
+*/
+
+/*********COMPILER DIRECTIVES*********/
+//#symbol_name ""
+//#hint ""
+#print_to_trace
+#ENABLE_TRACE
+#default_volatile
+
+/*
+#help_begin
+	(help text)
+#help_end
+/*
+
+/*********INCLUDE LIBRARIES*********/
+#USER_SIMPLSHARP_LIBRARY "WeatherChn"
+
+/*********IO ASSIGNMENTS*********/
+//string_input ZipCode[5];
+string_input APIKey[100],
+			 station_id[20];
+digital_input fetchWeather;
+
+analog_output CurrentObservation_wind_degrees,
+				CurrentObservation_wind_mph,
+				CurrentObservation_dewpoint_f,
+				CurrentObservation_dewpoint_c;
+
+//string_output city, condition, temp, tempString, humidity, windDir, windSpd, conditionURL, updated;
+string_output	temp_f,condition,
+				display_location_full,
+				display_location_city,
+				display_location_state,
+				display_location_state_name,
+				display_location_country,
+				display_location_country_iso3166,
+				display_location_zip,
+				display_location_magic,
+				display_location_wmo,
+				display_location_latitude,
+				display_location_longitude,
+				display_location_elevation,
+				observation_location_full,
+        		observation_location_city,
+        		observation_location_state,
+        		observation_location_country,
+        		observation_location_country_iso3166,
+        		observation_location_latitude,
+        		observation_location_longitude,
+        		observation_location_elevation,
+				CurrentObservation_station_id,
+        		CurrentObservation_observation_time,
+        		CurrentObservation_observation_time_rfc822,
+        		CurrentObservation_observation_epoch,
+        		CurrentObservation_local_time_rfc822,
+        		CurrentObservation_local_epoch,
+        		CurrentObservation_local_tz_short,
+        		CurrentObservation_local_tz_long,
+        		CurrentObservation_local_tz_offset,
+        		CurrentObservation_weather,
+        		CurrentObservation_temperature_string,
+				CurrentObservation_temp_f,
+				CurrentObservation_temp_c,
+				CurrentObservation_relative_humidity,
+        		CurrentObservation_wind_string,
+        		CurrentObservation_wind_dir,
+				CurrentObservation_wind_gust_mph,
+				CurrentObservation_wind_gust_kph,
+				CurrentObservation_pressure_mb,
+				CurrentObservation_pressure_in,
+				CurrentObservation_pressure_trend,
+				CurrentObservation_dewpoint_string,
+				CurrentObservation_heat_index_string,
+				CurrentObservation_heat_index_f,
+				CurrentObservation_heat_index_c,
+				CurrentObservation_windchill_string,
+				CurrentObservation_windchill_f,
+				CurrentObservation_windchill_c,
+				CurrentObservation_feelslike_string,
+				CurrentObservation_feelslike_f,
+				CurrentObservation_feelslike_c,
+				CurrentObservation_visibility_mi,
+				CurrentObservation_visibility_km,
+				CurrentObservation_solarradiation,
+				CurrentObservation_UV,
+				CurrentObservation_precip_1hr_string,
+				CurrentObservation_precip_1hr_in,
+				CurrentObservation_precip_1hr_metric,
+				CurrentObservation_precip_today_string,
+				CurrentObservation_precip_today_in,
+				CurrentObservation_precip_today_metric,
+				CurrentObservation_icon,
+				CurrentObservation_icon_url,
+				CurrentObservation_forecast_url,
+				CurrentObservation_history_url,
+				CurrentObservation_ob_url,
+				CurrentObservation_nowcast;
+
+				
+
+/*********PARAMETERS*********/
+                                                               
+/*********GLOBAL VARIABLES*********/
+
+WeatherChn myWeather;
+
+/*********EVENTS*********/
+push fetchWeather
+{
+   	//myWeather.ZipCode = ZipCode;
+	myWeather.station_id = station_id;
+   	myWeather.APIKey = APIKey;
+   	myWeather.getWeather();
+   	//condition = myWeather.Condition;
+   	temp_f = myWeather.temp_f;
+   	//windDir = myWeather.WindDirection;
+   	//windSpd = myWeather.WindSpeed;
+   	//conditionURL = myWeather.ConditionURL;
+	
+
+	//Garrett Additions    
+	//analog values
+	CurrentObservation_wind_degrees = myWeather.CurrentObservation_wind_degrees;
+	CurrentObservation_wind_mph = myWeather.CurrentObservation_wind_mph;
+	CurrentObservation_dewpoint_f = myWeather.CurrentObservation_dewpoint_f;
+	CurrentObservation_dewpoint_c = myWeather.CurrentObservation_dewpoint_c;
+
+	//serial values
+   	display_location_full = myWeather.display_location_full;
+	display_location_city = myWeather.display_location_city;
+	display_location_state = myWeather.display_location_state;
+	display_location_state_name = myWeather.display_location_state_name;
+	display_location_country = myWeather.display_location_country;
+	display_location_country_iso3166 = myWeather.display_location_country_iso3166;
+	display_location_zip = myWeather.display_location_zip;
+	display_location_magic = myWeather.display_location_magic;
+	display_location_wmo = myWeather.display_location_wmo;
+	display_location_latitude = myWeather.display_location_latitude;
+	display_location_longitude = myWeather.display_location_longitude;
+	display_location_elevation = myWeather.display_location_elevation;
+
+	observation_location_full = myWeather.observation_location_full;
+	observation_location_city = myWeather.observation_location_city;
+	observation_location_state = myWeather.observation_location_state;
+	observation_location_country = myWeather.observation_location_country;
+	observation_location_country_iso3166 = myWeather.observation_location_country_iso3166;
+	observation_location_latitude = myWeather.observation_location_latitude;
+	observation_location_longitude = myWeather.observation_location_longitude;
+	observation_location_elevation = myWeather.observation_location_elevation;
+
+	CurrentObservation_station_id = myWeather.CurrentObservation_station_id;
+	CurrentObservation_observation_time = myWeather.CurrentObservation_observation_time;
+	CurrentObservation_observation_time_rfc822 = myWeather.CurrentObservation_observation_time_rfc822;
+	CurrentObservation_observation_epoch = myWeather.CurrentObservation_observation_epoch;
+	CurrentObservation_local_time_rfc822 = myWeather.CurrentObservation_local_time_rfc822;
+	CurrentObservation_local_epoch = myWeather.CurrentObservation_local_epoch;
+	CurrentObservation_local_tz_short = myWeather.CurrentObservation_local_tz_short;
+	CurrentObservation_local_tz_long = myWeather.CurrentObservation_local_tz_long;
+	CurrentObservation_local_tz_offset = myWeather.CurrentObservation_local_tz_offset;
+	CurrentObservation_weather = myWeather.CurrentObservation_weather;
+	CurrentObservation_temperature_string = myWeather.CurrentObservation_temperature_string;
+	CurrentObservation_relative_humidity = myWeather.CurrentObservation_relative_humidity;
+	CurrentObservation_wind_string = myWeather.CurrentObservation_wind_string;
+	CurrentObservation_wind_dir = myWeather.CurrentObservation_wind_dir;
+	CurrentObservation_wind_gust_mph = myWeather.CurrentObservation_wind_gust_mph;
+	CurrentObservation_wind_gust_kph = myWeather.CurrentObservation_wind_gust_kph;
+	CurrentObservation_pressure_mb = myWeather.CurrentObservation_pressure_mb;
+	CurrentObservation_pressure_in = myWeather.CurrentObservation_pressure_in;
+	CurrentObservation_pressure_trend = myWeather.CurrentObservation_pressure_trend;
+	CurrentObservation_dewpoint_string = myWeather.CurrentObservation_dewpoint_string;
+	CurrentObservation_heat_index_string = myWeather.CurrentObservation_heat_index_string;
+	CurrentObservation_heat_index_f = myWeather.CurrentObservation_heat_index_f;
+	CurrentObservation_heat_index_c = myWeather.CurrentObservation_heat_index_c;
+	CurrentObservation_windchill_string = myWeather.CurrentObservation_windchill_string;
+	CurrentObservation_windchill_f = myWeather.CurrentObservation_windchill_f;
+	CurrentObservation_windchill_c = myWeather.CurrentObservation_windchill_c;
+	CurrentObservation_feelslike_string = myWeather.CurrentObservation_feelslike_string;
+	CurrentObservation_feelslike_f = myWeather.CurrentObservation_feelslike_f;
+	CurrentObservation_feelslike_c = myWeather.CurrentObservation_feelslike_c;
+	CurrentObservation_visibility_mi = myWeather.CurrentObservation_visibility_mi;
+	CurrentObservation_visibility_km = myWeather.CurrentObservation_visibility_km;
+	CurrentObservation_solarradiation = myWeather.CurrentObservation_solarradiation;
+	CurrentObservation_UV = myWeather.CurrentObservation_UV;
+	CurrentObservation_precip_1hr_string = myWeather.CurrentObservation_precip_1hr_string;
+	CurrentObservation_precip_1hr_in = myWeather.CurrentObservation_precip_1hr_in;
+	CurrentObservation_precip_1hr_metric = myWeather.CurrentObservation_precip_1hr_metric;
+	CurrentObservation_precip_today_string = myWeather.CurrentObservation_precip_today_string;
+	CurrentObservation_precip_today_in = myWeather.CurrentObservation_precip_today_in;
+	CurrentObservation_precip_today_metric = myWeather.CurrentObservation_precip_today_metric;
+	CurrentObservation_icon = myWeather.CurrentObservation_icon;
+	CurrentObservation_icon_url = myWeather.CurrentObservation_icon_url;
+	CurrentObservation_forecast_url = myWeather.CurrentObservation_forecast_url;
+	CurrentObservation_history_url = myWeather.CurrentObservation_history_url;
+	CurrentObservation_ob_url = myWeather.CurrentObservation_ob_url;
+	CurrentObservation_nowcast = myWeather.CurrentObservation_nowcast;
+
+	trace("API Key S+: %s", APIKey);
+	trace("Station ID S+: %s", station_id);
+
+        
+}
+
+Callback integer_function SendtoSIMPL (String str)
+{
+   temp_f = str;
+   condition = myWeather.temp_f;
+}
+
+/*********MAIN*********/
+function main()
+{
+    registerDelegate(myWeather, myDel, SendtoSIMPL);
+    WaitForInitializationComplete();
+}
+
