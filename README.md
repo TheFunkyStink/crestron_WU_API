@@ -1,3 +1,3 @@
 # Weather_Underground_API_with_C#_Crestron
 
-shit TBD
+this is my fucked up Crestron and C# Weather Underground API code
